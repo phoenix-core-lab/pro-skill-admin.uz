@@ -220,7 +220,7 @@ function Course() {
     formdata.append("title", lessonObject.title);
     formdata.append("time", lessonObject.time);
     formdata.append("moduleId", lessonObject.moduleId);
-    formdata.append("price", lessonObject.price);
+    formdata.append("price", +lessonObject.price);
 
     const requestOptions = {
       method: "POST",
@@ -653,7 +653,7 @@ function Course() {
                         onChange={(e) =>
                           setLessonObject({
                             ...lessonObject,
-                            price: e.target.value,
+                            price: +e.target.value,
                           })
                         }
                       />
@@ -733,7 +733,7 @@ function Course() {
                         onChange={(e) =>
                           setLessonObject({
                             ...courseObject,
-                            price: e.target.value,
+                            price: +e.target.value,
                           })
                         }
                       />
@@ -871,7 +871,7 @@ function Course() {
                         onChange={(e) =>
                           setLessonObject({
                             ...moduleObject,
-                            price: e.target.value,
+                            price: +e.target.value,
                           })
                         }
                       />
