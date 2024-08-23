@@ -9,7 +9,7 @@
     overflow: hidden;
 
     .modalWrapper {
-        background-color: #364C59;
+        background-color: #ccffdba3;
         padding: 30px;
         border-radius: 10px;
         min-width: 470px;
@@ -121,7 +121,7 @@
                     width: 100%;
                     text-align: center;
                     border-radius: 10px;
-                    background: #3B50CF;
+                    background: #006b1e;
                     color: #ffffff;
                     border: none;
                     font-family: "Montserrat";
@@ -130,12 +130,10 @@
                     font-weight: 500;
                     line-height: normal;
                     transition: 0.3s;
-                    border: 1px solid #3B50CF;
 
                     &:hover {
-                        border: 1px solid #3B50CF;
-                        background: #ffffff;
-                        color: #000000;
+                        background: #004d16;
+                        color: #ffffff;
                     }
                 }
             }
