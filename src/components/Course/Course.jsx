@@ -39,7 +39,7 @@ function Course() {
     time: "",
     moduleId: 0,
     items: [],
-    price: 0,
+    price: null,
   });
   const [courseObject, setCourseObject] = useState({
     title: "",
@@ -47,13 +47,13 @@ function Course() {
     author: "",
     time: "",
     files: [],
-    price: 0,
+    price: null,
   });
   const [moduleObject, setModuleObject] = useState({
     title: "",
     time: "",
     courseId: 0,
-    price: 0,
+    price: null,
   });
 
   useEffect(() => {
@@ -120,6 +120,7 @@ function Course() {
           title: moduleObject.title,
           time: moduleObject.time,
           courseId: moduleObject.courseId,
+          price: moduleObject.price,
         },
         {
           headers: {
@@ -178,7 +179,7 @@ function Course() {
       .then((result) => console.log(result))
       .catch((error) => toast.error("Произошла ошибка при создании Курса"));
 
-    toast.success("Урок успешно создан!");
+    toast.success("Курс успешно создан!");
     updateAllStates();
     cancelUpdateCourse();
   };
@@ -731,7 +732,7 @@ function Course() {
                         type='number'
                         value={courseObject.price}
                         onChange={(e) =>
-                          setLessonObject({
+                          setCourseObject({
                             ...courseObject,
                             price: +e.target.value,
                           })
@@ -869,7 +870,7 @@ function Course() {
                         type='number'
                         value={moduleObject.price}
                         onChange={(e) =>
-                          setLessonObject({
+                          setModuleObject({
                             ...moduleObject,
                             price: +e.target.value,
                           })
