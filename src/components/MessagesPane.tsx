@@ -43,16 +43,14 @@ export default function MessagesPane(props) {
   };
 
   socket.on("message", (data) => {
-    setTimeout(() => {
-      getSelectedChat(props.selectedChatId);
-    }, 200);
+    getSelectedChat(props.selectedChatId);
   });
 
   React.useEffect(() => {
     getSelectedChat(props.selectedChatId);
 
     return () => {
-      socket.off('message');
+      socket.off("message");
       socket.disconnect();
     };
   }, [props.selectedChatId]);
