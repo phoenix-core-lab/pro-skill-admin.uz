@@ -48,11 +48,6 @@ export default function MessagesPane(props) {
 
   React.useEffect(() => {
     getSelectedChat(props.selectedChatId);
-
-    return () => {
-      socket.off("message");
-      socket.disconnect();
-    };
   }, [props.selectedChatId]);
 
   const handleSubmit = async () => {
