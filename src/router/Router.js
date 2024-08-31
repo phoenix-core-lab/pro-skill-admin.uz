@@ -10,6 +10,7 @@ import { APP_ROUTES } from "./Route.js";
 import Course from "../components/Course/Course";
 import Login from "../components/Login/Login";
 import Tests from "../components/Tests/Tests";
+import Chat from "../components/Chat/Chat";
 import Messages from "../components/Messages/Messages";
 // import Mentor from "../components/Curator/Mentor.tsx";
 
@@ -61,7 +62,7 @@ function Router() {
           path={APP_ROUTES.CHAT}
           element={
             <RequireAuth>
-              <Messages />
+              <Chat />
             </RequireAuth>
           }
         />

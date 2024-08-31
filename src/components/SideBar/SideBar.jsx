@@ -7,7 +7,7 @@ import axios from "axios";
 import "./SideBar.scss";
 import { useNavigate } from "react-router-dom";
 import { Outlet, Link } from "react-router-dom";
-
+import MarkUnreadChatAltOutlinedIcon from '@mui/icons-material/MarkUnreadChatAltOutlined';
 import userIcon from "../../images/user.svg";
 import messangerIcon from "../../images/messangerIcon.svg";
 import refferalIcon from "../../images/refIcon.svg";
@@ -72,6 +72,18 @@ function SideBar(props) {
                   <img src={messangerIcon} alt={messangerIcon} />
                 </div>
                 <h4>Заявки клиеннтов</h4>
+              </Link>
+              <Link
+                reloadDocument
+                to={APP_ROUTES.CHAT}
+                className={`navLink ${
+                  props.title === "Чат со студентами" && "isActive"
+                }`}
+              >
+                <div className="navLinkIcon">
+                  <MarkUnreadChatAltOutlinedIcon />
+                </div>
+                <h4>Чат со студентами</h4>
               </Link>
             </>
           )}
