@@ -53,7 +53,7 @@ export default function MessagesPane(props) {
   const handleSubmit = async () => {
     socket.emit("message", {
       text: textAreaValue,
-      userId: props.selectedChatId,
+      userId: props.selectedChatId.toString(),
     });
 
     setTextAreaValue("");
