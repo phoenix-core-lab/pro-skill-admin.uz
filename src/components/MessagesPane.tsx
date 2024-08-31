@@ -48,7 +48,25 @@ export default function MessagesPane(props) {
 
   React.useEffect(() => {
     getSelectedChat(props.selectedChatId);
+
+    return () => {
+      socket.off('message');
+      socket.disconnect();
+    };
   }, [props.selectedChatId]);
+
+  const handleSubmit = async () => {
+    socket.emit("message", {
+      text: textAreaValue,
+      userId: props.selectedChatId,
+    });
+
+    setTextAreaValue("");
+
+    setTimeout(() => {
+      getSelectedChat(props.selectedChatId);
+    }, 200);
+  };
 
   return (
     <Sheet
@@ -97,14 +115,7 @@ export default function MessagesPane(props) {
       <MessageInput
         textAreaValue={textAreaValue}
         setTextAreaValue={setTextAreaValue}
-        onSubmit={() => {
-          socket.emit("message", {
-            text: textAreaValue,
-            userId: props.selectedChatId,
-          });
-          getSelectedChat(props.selectedChatId);
-          setTextAreaValue("");
-        }}
+        onSubmit={handleSubmit}
       />
     </Sheet>
   );
