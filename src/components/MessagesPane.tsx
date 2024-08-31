@@ -58,9 +58,7 @@ export default function MessagesPane(props) {
 
     setTextAreaValue("");
 
-    setTimeout(() => {
-      getSelectedChat(props.selectedChatId);
-    }, 200);
+    getSelectedChat(props.selectedChatId);
   };
 
   return (
