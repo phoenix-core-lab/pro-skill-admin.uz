@@ -15,7 +15,7 @@ export default function MyProfile() {
   const logInMentor = async () => {
     try {
       const response = await axios.post(
-        "https://proskill-academy.com:5000/mentor/login",
+        "https://api.proskill-academy.com//mentor/login",
         {
           name: "mentor",
           password: "secret",
@@ -37,7 +37,7 @@ export default function MyProfile() {
   const getMentorChats = async () => {
     try {
       const response = await axios.get(
-        "https://proskill-academy.com:5000/chat/mentor", {
+        "https://api.proskill-academy.com//chat/mentor", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("mentorToken")}`,
           },

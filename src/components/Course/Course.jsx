@@ -575,7 +575,7 @@ function Course() {
 
           <div className='corporativeCreateWrapper'>
             <div className={`corporativeCreate ${choosenCreateStep === 1 && "choosenStep"}`}>
-              <h2 className='headingCreate'>{lessonUpdate ? "Изменить урок" : "Новый урок"}</h2>
+              <h2 className='headingCreate'>{lessonUpdate ? "Изменить урок" : "Новый библиотека"}</h2>
               <div className='formInputs'>
                 <div className='textInputsWrapper'>
                   <div className='textInputsLine'>

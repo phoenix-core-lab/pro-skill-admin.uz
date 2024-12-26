@@ -12,6 +12,7 @@ import Login from "../components/Login/Login";
 import Tests from "../components/Tests/Tests";
 import Chat from "../components/Chat/Chat";
 import Messages from "../components/Messages/Messages";
+import Library from "../components/Library/Library.jsx";
 // import Mentor from "../components/Curator/Mentor.tsx";
 
 function RequireAuth({ children }) {
@@ -63,6 +64,14 @@ function Router() {
           element={
             <RequireAuth>
               <Chat />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={APP_ROUTES.LIBRARY}
+          element={
+            <RequireAuth>
+              <Library />
             </RequireAuth>
           }
         />

@@ -16,7 +16,7 @@ export default function MessagesPane(props) {
   const [chatMessages, setChatMessages] = React.useState([]);
   const [textAreaValue, setTextAreaValue] = React.useState("");
 
-  const socket = io("https://proskill-academy.com:5000", {
+  const socket = io("https://api.proskill-academy.com/", {
     transportOptions: {
       polling: {
         extraHeaders: {

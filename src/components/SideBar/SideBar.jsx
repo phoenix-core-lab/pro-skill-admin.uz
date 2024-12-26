@@ -85,6 +85,18 @@ function SideBar(props) {
                 </div>
                 <h4>Чат со студентами</h4>
               </Link>
+              <Link
+                reloadDocument
+                to={APP_ROUTES.LIBRARY}
+                className={`navLink ${
+                  props.title === "Библиотека" && "isActive"
+                }`}
+              >
+                <div className="navLinkIcon">
+                  <img src={refferalIcon} alt={refferalIcon} />
+                </div>
+                <h4>Библиотека</h4>
+              </Link>
             </>
           )}
 
