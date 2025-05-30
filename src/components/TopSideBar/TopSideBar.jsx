@@ -22,7 +22,7 @@ function TopSideBar(props) {
             <img src={sidebarIcon} alt={sidebarIcon} />
           </div>
           <h3>
-            PRO-SKILL <span className="slash">/</span>{" "}
+            Jinsiy Hayot <span className="slash">/</span>{" "}
             <span className="pageTitleinRoutes">{props.title}</span>
           </h3>
         </div>

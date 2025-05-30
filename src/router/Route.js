@@ -1,5 +1,5 @@
 export const APP_ROUTES = {
-  URL: "https://api.proskill-academy.com",
+  URL: "http://192.168.1.104:5050",
   LOGIN: "/login",
   COURSE: "/course",
   TESTS: "/tests",
@@ -7,4 +7,6 @@ export const APP_ROUTES = {
   CHAT: "/chat",
   MESSAGES: "/messages",
   LIBRARY: "/library",
+  USERS: "/users",
+  FUNDS: "/funds",
 };

@@ -7,8 +7,9 @@ import axios from "axios";
 import "./SideBar.scss";
 import { useNavigate } from "react-router-dom";
 import { Outlet, Link } from "react-router-dom";
-import MarkUnreadChatAltOutlinedIcon from '@mui/icons-material/MarkUnreadChatAltOutlined';
+import MarkUnreadChatAltOutlinedIcon from "@mui/icons-material/MarkUnreadChatAltOutlined";
 import userIcon from "../../images/user.svg";
+import usersIcon from "../../images/usersIcon.svg";
 import messangerIcon from "../../images/messangerIcon.svg";
 import refferalIcon from "../../images/refIcon.svg";
 import corporativeIcon from "../../images/corporativeIcon.svg";
@@ -96,6 +97,30 @@ function SideBar(props) {
                   <img src={refferalIcon} alt={refferalIcon} />
                 </div>
                 <h4>Библиотека</h4>
+              </Link>
+              <Link
+                reloadDocument
+                to={APP_ROUTES.USERS}
+                className={`navLink ${
+                  props.title === "Пользователи" && "isActive"
+                }`}
+              >
+                <div className="navLinkIcon">
+                  <img src={usersIcon} alt={usersIcon} />
+                </div>
+                <h4>Пользователи</h4>
+              </Link>
+              <Link
+                reloadDocument
+                to={APP_ROUTES.FUNDS}
+                className={`navLink ${
+                  props.title === "Полученные средства" && "isActive"
+                }`}
+              >
+                <div className="navLinkIcon">
+                  <img src={corporativeIcon} alt={corporativeIcon} />
+                </div>
+                <h4>Полученные средства</h4>
               </Link>
             </>
           )}

@@ -1,0 +1,237 @@
+.loginPage {
+  position: relative;
+  background: rgba(0, 0, 0, 0.7098039216);
+  width: 100%;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+}
+.loginPage .modalWrapper {
+  background-color: rgba(204, 255, 219, 0.6392156863);
+  padding: 30px;
+  border-radius: 10px;
+  min-width: 470px;
+}
+.loginPage .modalWrapper .headerComponents {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.loginPage .modalWrapper .formWrapper {
+  width: 100%;
+  max-width: 470px;
+}
+.loginPage .modalWrapper .formWrapper .inputElement {
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.loginPage .modalWrapper .formWrapper .inputElement input {
+  width: 100%;
+  border: 1px solid #b1b1b1;
+  border-radius: 10px;
+  height: 40px;
+  padding: 25px;
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.loginPage .modalWrapper .formWrapper .agePhoneNumber {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.loginPage .modalWrapper .formWrapper .agePhoneNumber .inputElement:first-child {
+  width: 60%;
+  margin-right: 10px;
+}
+.loginPage .modalWrapper .formWrapper .genderWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 40px;
+  padding: 25px;
+  margin-bottom: 20px;
+  border: 1px solid #b1b1b1;
+  border-radius: 10px;
+}
+.loginPage .modalWrapper .formWrapper .genderWrapper p {
+  color: #777373;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.loginPage .modalWrapper .formWrapper .genderWrapper .radioWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 45%;
+}
+.loginPage .modalWrapper .formWrapper .genderWrapper .radioWrapper .genderItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.loginPage .modalWrapper .formWrapper .genderWrapper .radioWrapper .genderItem p {
+  margin-right: 10px;
+}
+.loginPage .modalWrapper .formWrapper .genderWrapper .radioWrapper .genderItem input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  background-color: transparent;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  outline: none;
+}
+.loginPage .modalWrapper .formWrapper .genderWrapper .radioWrapper .genderItem input[type=checkbox]:checked {
+  background-color: #000;
+}
+.loginPage .modalWrapper .formWrapper .sendDataWrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.loginPage .modalWrapper .formWrapper .sendDataWrapper .sendData {
+  cursor: pointer;
+  padding: 16px 25px;
+  width: 100%;
+  text-align: center;
+  border-radius: 10px;
+  background: #006b1e;
+  color: #ffffff;
+  border: none;
+  font-family: "Montserrat";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.loginPage .modalWrapper .formWrapper .sendDataWrapper .sendData:hover {
+  background: #004d16;
+  color: #ffffff;
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+.gradient {
+  --speed: 15s;
+  --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  width: 800px;
+  height: 800px;
+  position: absolute;
+  z-index: -1;
+  -webkit-filter: blur(100px);
+          filter: blur(100px);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(hsl(158, 82%, 57%)), to(hsl(252, 82%, 57%)));
+  background-image: linear-gradient(hsl(158, 82%, 57%), hsl(252, 82%, 57%));
+  -webkit-animation: rotate var(--speed) var(--easing) alternate infinite;
+          animation: rotate var(--speed) var(--easing) alternate infinite;
+  border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
+}
+
+/* This is just to transition when you change the viewport size. */
+@media screen and (max-width: 600px) {
+  .loginPage {
+    position: relative;
+  }
+  .loginPage .logoLogin {
+    width: 60px;
+    height: 60px;
+    left: 50%;
+    top: 0px;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+  }
+  .loginPage .modalWrapper {
+    width: 90%;
+    min-width: 300px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+  .loginPage .modalWrapper .headerComponents h1 {
+    font-size: 25px;
+    margin-bottom: 10px;
+  }
+}/*# sourceMappingURL=Login.css.map */

@@ -117,14 +117,14 @@ function Library() {
       formdata.append(
         "files",
         productObject.files[0],
-        productObject.files[0].name
+        productObject.files[0]?.name
       );
     }
     if (productObject.items[0]) {
       formdata.append(
         "files",
         productObject.items[0],
-        productObject.items[0].name
+        productObject.items[0]?.name
       );
     }
     formdata.append("title", productObject.title);
@@ -173,7 +173,7 @@ function Library() {
     );
 
     const formdata = new FormData();
-    formdata.append("file", file, file.name);
+    formdata.append("file", file, file?.name);
     formdata.append("name", libraryObject.title);
     console.log("Отправка данных:");
     for (let pair of formdata.entries()) {
@@ -290,12 +290,12 @@ function Library() {
       formdata.append(
         "files",
         productObject.files[0],
-        productObject.files[0].name
+        productObject.files[0]?.name
       );
       formdata.append(
         "files",
         productObject.items[0],
-        productObject.items[0].name
+        productObject.items[0]?.name
       );
     }
     formdata.append("id", productId);
@@ -352,7 +352,7 @@ function Library() {
     const library = allLibraries.find((library) => library.id === id);
     setLibraryObject({
       ...libraryObject,
-      title: library.name,
+      title: library?.name,
       file: [],
     });
   };
@@ -603,7 +603,7 @@ function Library() {
                         </option>
                         {allLibraries.map((library) => (
                           <option key={library.id} value={library.id}>
-                            {library.name}
+                            {library?.name}
                           </option>
                         ))}
                       </select>
@@ -660,7 +660,7 @@ function Library() {
                   {allLibraries.map((library, index) => (
                     <div className="tableBodyItemWrapper" key={index}>
                       <div className="tableBodyItem smallItem">{index + 1}</div>
-                      <div className="tableBodyItem">{library.name}</div>
+                      <div className="tableBodyItem">{library?.name}</div>
                       <div className="tableBodyItem smallItem">
                         <div
                           className="change"
@@ -707,7 +707,7 @@ function Library() {
                         {
                           allLibraries.find(
                             (library) => library.id === product.libraryId
-                          ).name
+                          )?.name
                         }
                       </div>
                       {/* <div className="tableBodyItem smallItem">

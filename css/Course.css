@@ -1,0 +1,604 @@
+.mainInfo {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+}
+
+.mainInfoContainer {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow-y: auto;
+  height: calc(100vh - 71px);
+}
+
+.mainInfoCardsContainer {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px;
+}
+.mainInfoCardsContainer .mainInfoCard {
+  width: 50%;
+  padding: 20px;
+  background: #E5ECF6;
+  border-radius: 10px;
+  border: 1px solid rgba(28, 28, 28, 0.1019607843);
+  position: relative;
+}
+.mainInfoCardsContainer .mainInfoCard .cardTitle {
+  font-size: 26px;
+  color: #414D55;
+  font-family: gilroy-medium;
+  margin-bottom: 10px;
+}
+.mainInfoCardsContainer .mainInfoCard .cardQty {
+  font-size: 30px;
+  color: #414D55;
+  font-family: gilroy-medium;
+}
+.mainInfoCardsContainer .mainInfoCard .plusIcon {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0);
+  border: 1px solid rgba(0, 0, 0, 0.9843137255);
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: black;
+  cursor: pointer;
+  font-size: 30px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.mainInfoCardsContainer .mainInfoCard .plusIcon:hover {
+  background: rgba(0, 0, 0, 0.9843137255);
+  color: white;
+}
+.mainInfoCardsContainer .mainInfoCard:first-child {
+  margin-right: 10px;
+}
+.mainInfoCardsContainer .mainInfoCard:last-child {
+  margin-left: 10px;
+}
+
+.corporativeCreateWrapper {
+  width: 100%;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+.corporativeCreateWrapper .corporativeCreate {
+  padding: 20px;
+  width: 100%;
+  border: 1px solid rgba(28, 28, 28, 0.1019607843);
+  border-radius: 10px;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.corporativeCreateWrapper .corporativeCreate.choosenStep {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.corporativeCreateWrapper .corporativeCreate .headingCreate {
+  font-size: 22px;
+  color: #000000;
+  font-family: gilroy-medium;
+  margin-bottom: 20px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper {
+  width: 60%;
+  margin-right: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine {
+  width: 50%;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine:first-child {
+  margin-right: 10px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine:last-child {
+  margin-left: 10px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .testInput {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 10px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .testInput label {
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+  margin-bottom: 5px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .testInput input[type=radio] {
+  margin-right: 10px;
+  width: auto;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .testInput .deleteAnswerBtn {
+  padding: 10px;
+  border: 1px solid #a4a4a4;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-left: 10px;
+  color: #ffffff;
+  font-family: gilroy-medium;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background: #c70000;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .testInput .deleteAnswerBtn:hover {
+  background: #DCE3EF;
+  color: black;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .testInput input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #a4a4a4;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .textInput {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 10px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .textInput label {
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+  margin-bottom: 5px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .textInput input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #a4a4a4;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .textInput select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #a4a4a4;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .textInput select option {
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .textInput:last-child {
+  margin-bottom: 0;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .buttonsWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .buttonsWrapper button {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #a4a4a4;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #ffffff;
+  font-family: gilroy-medium;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .buttonsWrapper button:first-child {
+  background: #000000;
+  margin-right: 5px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .buttonsWrapper button:last-child {
+  background: #c70000;
+  margin-left: 5px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .buttonsWrapper button:hover {
+  background: #DCE3EF;
+  color: black;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .buttonsWrapper .newAnswerBtn {
+  margin-left: 0 !important;
+  background: #124e00 !important;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .buttonsWrapper .newAnswerBtn:hover {
+  background: #229000 !important;
+  color: white !important;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .textAreaInput {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .textAreaInput label {
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+  margin-bottom: 5px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .textAreaInput textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #a4a4a4;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+  max-height: 115px;
+  resize: none;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .colorChoose {
+  width: 100%;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .colorChoose label {
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .colorChoose .colorItems {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .colorChoose .colorItems .colorItem {
+  margin-right: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .colorChoose .colorItems .colorItem .colorBox {
+  width: 41px;
+  height: 41px;
+  border: 1px solid #a4a4a4;
+  cursor: pointer;
+  -webkit-transition: 0;
+  transition: 0;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .colorChoose .colorItems .colorItem .colorBox.white {
+  background: white;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .colorChoose .colorItems .colorItem .colorBox.black {
+  background: black;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .colorChoose .colorItems .colorItem h3 {
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .textInputsWrapper .textInputsLine .colorChoose .colorItems .colorItem.active .colorBox {
+  border: 3px solid #2cbe00;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper {
+  width: 40%;
+  margin-left: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper label {
+  width: 100%;
+  -moz-text-align-last: left;
+       text-align-last: left;
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+  margin-bottom: 5px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper .selectImageIconInput {
+  content: url("../../images/Light.jpg");
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px;
+  border: 1px dashed #a4a4a4;
+  min-height: 149px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: black;
+  margin-bottom: 20px;
+  max-height: 365px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper .selectImageIconInput:hover {
+  background: #E5ECF6;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper .selectImageIconInput .selectImageIcon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper .selectImageIconInput p {
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #a4a4a4;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+  margin-bottom: 20px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper select option {
+  font-size: 16px;
+  color: #414D55;
+  font-family: gilroy-medium;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper .uploadedPhoto {
+  width: 100%;
+  color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper .uploadedPhoto .uploadedPhotoItem {
+  width: 50%;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper .uploadedPhoto .uploadedPhotoItem img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 5px;
+  border: 1px solid #a4a4a4;
+  max-height: 173px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper .uploadedPhoto .uploadedPhotoItem:first-child {
+  margin-right: 10px;
+}
+.corporativeCreateWrapper .corporativeCreate .formInputs .imageInputsWrapper .uploadedPhoto .uploadedPhotoItem:last-child {
+  margin-left: 10px;
+}
+
+.table {
+  width: 100%;
+  padding: 0 20px;
+  margin-bottom: 20px;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.table.choosenStep {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.table .tableWrapper {
+  width: 100%;
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid rgba(28, 28, 28, 0.1019607843);
+  color: black !important;
+}
+.table .tableWrapper h3 {
+  font-size: 22px;
+  color: #000000;
+  font-family: gilroy-medium;
+  margin-bottom: 30px;
+}
+.table .tableWrapper .tableHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 1px solid #4a4a4a;
+  padding: 0 20px 15px 20px;
+}
+.table .tableWrapper .tableHeader .tableHeaderItem {
+  width: 20%;
+  font-size: 16px;
+  font-family: gilroy-medium;
+}
+.table .tableWrapper .tableHeader .tableHeaderItem:not(:last-child, :first-child) {
+  padding: 0 10px;
+}
+.table .tableWrapper .tableBody {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.table .tableWrapper .tableBody .tableBodyItemWrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #4a4a4a;
+}
+.table .tableWrapper .tableBody .tableBodyItemWrapper:hover {
+  background: #E5ECF6;
+}
+.table .tableWrapper .tableBody .tableBodyItemWrapper .tableBodyItem {
+  width: 20%;
+  font-size: 16px;
+  font-family: gilroy-medium;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.table .tableWrapper .tableBody .tableBodyItemWrapper .tableBodyItem:not(:last-child, :first-child) {
+  padding: 0 10px;
+}
+.table .tableWrapper .tableBody .tableBodyItemWrapper .remove,
+.table .tableWrapper .tableBody .tableBodyItemWrapper .change {
+  cursor: pointer;
+  min-width: 25px !important;
+  max-width: 25px !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.table .tableWrapper .tableBody .tableBodyItemWrapper .remove img,
+.table .tableWrapper .tableBody .tableBodyItemWrapper .change img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.table .tableWrapper .tableBody .tableBodyItemWrapper .remove img:hover,
+.table .tableWrapper .tableBody .tableBodyItemWrapper .change img:hover {
+  opacity: 0.5;
+}
+.table .smallItem {
+  min-width: 90px;
+  max-width: 90px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.table .smallItem:first-child {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+.table .pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-top: 20px;
+}
+.table .pagination button {
+  border-radius: 5px;
+}/*# sourceMappingURL=Course.css.map */
