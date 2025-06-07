@@ -1,5 +1,5 @@
 export const APP_ROUTES = {
-  URL: "http://192.168.1.104:5050",
+  URL: "https://api.jinsiy-hayot.org",
   LOGIN: "/login",
   COURSE: "/course",
   TESTS: "/tests",
