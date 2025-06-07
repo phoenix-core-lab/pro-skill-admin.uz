@@ -1,6 +1,6 @@
 .loginPage {
     position: relative;
-    background: #000000b5;
+    background: #751b1b;
     width: 100%;
     height: 100vh;
     display: flex;
@@ -9,7 +9,7 @@
     overflow: hidden;
 
     .modalWrapper {
-        background-color: #ccffdba3;
+        background-color: #c32c2c;
         padding: 30px;
         border-radius: 10px;
         min-width: 470px;
@@ -121,7 +121,7 @@
                     width: 100%;
                     text-align: center;
                     border-radius: 10px;
-                    background: #006b1e;
+                    background: #8f2020;
                     color: #ffffff;
                     border: none;
                     font-family: "Montserrat";
@@ -132,7 +132,7 @@
                     transition: 0.3s;
 
                     &:hover {
-                        background: #004d16;
+                        background: #820000;
                         color: #ffffff;
                     }
                 }
