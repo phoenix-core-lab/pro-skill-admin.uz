@@ -146,7 +146,7 @@ const Funds = () => {
       title: "Сумма",
       dataIndex: "amount",
       key: "amount",
-      render: (value) => `${value} руб.`,
+      render: (value) => `${value} сум.`,
     },
     {
       title: "Дата",
@@ -219,7 +219,7 @@ const Funds = () => {
           </div>
 
           <Card title="Общая сумма" style={{ marginBottom: "16px" }}>
-            {totalAmount} руб.
+            {totalAmount} сум.
           </Card>
 
           <Spin spinning={loading}>

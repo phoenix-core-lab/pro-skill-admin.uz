@@ -50,7 +50,7 @@ function SideBar(props) {
                 </div>
                 <h4>Админ панель</h4>
               </Link>
-              <Link
+              {/* <Link
                 reloadDocument
                 to={APP_ROUTES.TESTS}
                 className={`navLink ${
@@ -61,20 +61,20 @@ function SideBar(props) {
                   <img src={refferalIcon} alt={refferalIcon} />
                 </div>
                 <h4>Тесты к урокам</h4>
-              </Link>
+              </Link> */}
               <Link
                 reloadDocument
                 to={APP_ROUTES.MESSAGES}
                 className={`navLink ${
-                  props.title === "Заявки клиеннтов" && "isActive"
+                  props.title === "Заявки клиентов" && "isActive"
                 }`}
               >
                 <div className="navLinkIcon">
                   <img src={messangerIcon} alt={messangerIcon} />
                 </div>
-                <h4>Заявки клиеннтов</h4>
+                <h4>Заявки клиентов</h4>
               </Link>
-              <Link
+              {/* <Link
                 reloadDocument
                 to={APP_ROUTES.CHAT}
                 className={`navLink ${
@@ -85,8 +85,8 @@ function SideBar(props) {
                   <MarkUnreadChatAltOutlinedIcon />
                 </div>
                 <h4>Чат со студентами</h4>
-              </Link>
-              <Link
+              </Link> */}
+              {/* <Link
                 reloadDocument
                 to={APP_ROUTES.LIBRARY}
                 className={`navLink ${
@@ -97,7 +97,7 @@ function SideBar(props) {
                   <img src={refferalIcon} alt={refferalIcon} />
                 </div>
                 <h4>Библиотека</h4>
-              </Link>
+              </Link> */}
               <Link
                 reloadDocument
                 to={APP_ROUTES.USERS}
