@@ -1,18 +1,26 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Helmet } from "react-helmet";
 import { Outlet } from "react-router-dom";
-import { Input, Table, Typography, Spin, Button } from "antd";
+import {
+  Input,
+  Table,
+  Typography,
+  Spin,
+  Button,
+  Select,
+  DatePicker,
+} from "antd";
 import axios from "axios";
-import debounce from "lodash.debounce";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-
 import SideBar from "../SideBar/SideBar";
 import TopSideBar from "../TopSideBar/TopSideBar";
 import { APP_ROUTES } from "../../router/Route";
+import { useDebounce } from "../../hooks/useDebounce";
 
-const PAGE_SIZE = 10;
+const { RangePicker } = DatePicker;
+const { Option } = Select;
 
 const Users = () => {
   const title = "Пользователи";
@@ -20,6 +28,8 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const debouncedSearchValue = useDebounce(searchValue, 500);
+  const [dateRange, setDateRange] = useState([null, null]);
 
   const buildFilterParams = (value) => {
     const isPhone = /\d/.test(value);
@@ -27,21 +37,76 @@ const Users = () => {
   };
 
   useEffect(() => {
-    fetchUsers();
-  }, [searchValue]);
+    getFilteredUsers();
+  }, [debouncedSearchValue, dateRange]);
 
-  const fetchUsers = async () => {
-    setLoading(true);
+  const addPayment = (userId) => {
+    axios
+      .post(
+        `${APP_ROUTES.URL}/admin/add-payment`,
+        { userId },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("@token")}`,
+          },
+        }
+      )
+      .then(() => {
+        toast.success("Платеж успешно добавлен");
+        getFilteredUsers();
+      })
+      .catch((error) => {
+        console.error("Ошибка при добавлении платежа:", error);
+        toast.error("Не удалось добавить платеж");
+      });
+  };
+
+  const deletePayment = (paymentId) => {
+    axios
+      .delete(`${APP_ROUTES.URL}/admin/delete-payment`, {
+        data: { paymentId },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("@token")}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then(() => {
+        toast.success("Платеж успешно удален");
+        getFilteredUsers();
+      })
+      .catch((error) => {
+        console.error("Ошибка при удалении платежа:", error);
+        toast.error("Не удалось удалить платеж");
+      });
+  };
+
+  const getFilteredUsers = async () => {
     try {
+      setLoading(true);
       const token = localStorage.getItem("@token");
+
       let response;
 
       if (searchValue.trim()) {
+        // 🔍 Поиск по отдельному endpoint-у
         response = await axios.get(`${APP_ROUTES.URL}/admin/filter`, {
           params: buildFilterParams(searchValue.trim()),
           headers: { Authorization: `Bearer ${token}` },
         });
+      } else if (dateRange[0] && dateRange[1]) {
+        // 📅 Фильтрация по дате
+        response = await axios.get(
+          `${APP_ROUTES.URL}/admin/show-all-users-filter`,
+          {
+            params: {
+              from_date: dateRange[0],
+              until: dateRange[1],
+            },
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
       } else {
+        // 📄 Все пользователи
         response = await axios.get(`${APP_ROUTES.URL}/admin/show-all-users`, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -57,28 +122,25 @@ const Users = () => {
   };
 
   const handleSearchChange = (e) => {
-    const value = e.target.value;
-    debouncedSearch(value);
+    setSearchValue(e.target.value);
   };
-
-  const debouncedSearch = useCallback(
-    debounce((value) => {
-      setSearchValue(value);
-    }, 500),
-    []
-  );
 
   const resetSearch = () => {
     setSearchValue("");
+    setDateRange([null, null]);
   };
 
   const exportToExcel = () => {
     const formattedData = users.map((user) => ({
       ID: user.id,
+      "Номер телефона": user.phoneNumber,
       ФИО: user.fullName,
-      Телефон: user.phoneNumber,
-      Авторизован: user.authorized ? "Да" : "Нет",
-      "Дата создания": new Date(user.createdAt).toLocaleDateString(),
+      "День регистрации": new Date(user.createdAt).toLocaleDateString(),
+      "Есть ли подписка": user.payments?.length > 0 ? "Да" : "Нет",
+      "Дата покупки подписки":
+        user.payments?.length > 0
+          ? new Date(user.payments[0].createdAt).toLocaleDateString()
+          : "—",
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(formattedData);
@@ -103,30 +165,68 @@ const Users = () => {
       sorter: (a, b) => a.id - b.id,
     },
     {
+      title: "Номер телефона",
+      dataIndex: "phoneNumber",
+      key: "phoneNumber",
+      sorter: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
+    },
+    {
       title: "ФИО",
       dataIndex: "fullName",
       key: "fullName",
       sorter: (a, b) => a.fullName.localeCompare(b.fullName),
     },
     {
-      title: "Телефон",
-      dataIndex: "phoneNumber",
-      key: "phoneNumber",
-      sorter: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
-    },
-    {
-      title: "Авторизован",
-      dataIndex: "authorized",
-      key: "authorized",
-      render: (authorized) => (authorized ? "Да" : "Нет"),
-      sorter: (a, b) => Number(a.authorized) - Number(b.authorized),
-    },
-    {
-      title: "Дата создания",
+      title: "День регистрации",
       dataIndex: "createdAt",
       key: "createdAt",
       render: (date) => new Date(date).toLocaleDateString(),
       sorter: (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
+    },
+    {
+      title: "Есть ли подписка",
+      key: "hasSubscription",
+      render: (_, user) => {
+        const hasSubscription = user?.payments?.length > 0;
+        const currentValue = hasSubscription ? "Да" : "Нет";
+
+        const handleChange = (value) => {
+          if (value === "Да" && !hasSubscription) {
+            addPayment(user.id);
+          } else if (value === "Нет" && hasSubscription) {
+            deletePayment(user.payments[0].id);
+          }
+        };
+
+        return (
+          <Select
+            defaultValue={currentValue}
+            style={{ width: 120 }}
+            onChange={handleChange}
+          >
+            <Option value="Да">Да</Option>
+            <Option value="Нет">Нет</Option>
+          </Select>
+        );
+      },
+      sorter: (a, b) => (a?.payments?.length || 0) - (b?.payments?.length || 0),
+    },
+    {
+      title: "Дата покупки подписки",
+      key: "subscriptionDate",
+      render: (_, user) =>
+        user?.payments?.length > 0
+          ? new Date(user.payments[0].createdAt).toLocaleDateString()
+          : "—",
+      sorter: (a, b) => {
+        const dateA = a?.payments?.[0]?.createdAt
+          ? new Date(a.payments[0].createdAt)
+          : 0;
+        const dateB = b?.payments?.[0]?.createdAt
+          ? new Date(b.payments[0].createdAt)
+          : 0;
+        return dateA - dateB;
+      },
     },
   ];
 
@@ -153,19 +253,19 @@ const Users = () => {
               marginBottom: "12px",
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                gap: "12px",
-              }}
-            >
+            <div style={{ display: "flex", gap: "12px" }}>
               <Input
                 placeholder="Поиск по имени или номеру телефона"
                 onChange={handleSearchChange}
                 value={searchValue}
                 style={{ width: "300px" }}
               />
-              <Button onClick={resetSearch}>Сбросить поиск</Button>
+              <RangePicker
+                onChange={(dates) => setDateRange(dates)}
+                format="YYYY-MM-DD"
+                style={{ width: "30%" }}
+              />
+              <Button onClick={resetSearch}>Сбросить</Button>
             </div>
             <Button onClick={exportToExcel} type="primary">
               Экспорт в Excel
@@ -176,10 +276,7 @@ const Users = () => {
               columns={columns}
               dataSource={users}
               rowKey="id"
-              pagination={{
-                pageSize: PAGE_SIZE,
-                showSizeChanger: false,
-              }}
+              pagination={{ pageSize: 40, showSizeChanger: false }}
               locale={{ emptyText: "Нет данных для отображения" }}
             />
           </Spin>
