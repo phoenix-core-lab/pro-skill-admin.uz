@@ -15,6 +15,7 @@ import Messages from "../components/Messages/Messages";
 import Library from "../components/Library/Library.jsx";
 import Users from "../components/Users/Users.jsx";
 import Funds from "../components/Funds/Funds.jsx";
+import Registrate from "../components/Registrate/Registrate.jsx";
 // import Mentor from "../components/Curator/Mentor.tsx";
 
 function RequireAuth({ children }) {
@@ -82,6 +83,14 @@ function Router() {
           element={
             <RequireAuth>
               <Users />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={APP_ROUTES.REGISTRATE}
+          element={
+            <RequireAuth>
+              <Registrate />
             </RequireAuth>
           }
         />

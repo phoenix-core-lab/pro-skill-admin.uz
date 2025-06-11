@@ -9,4 +9,5 @@ export const APP_ROUTES = {
   LIBRARY: "/library",
   USERS: "/users",
   FUNDS: "/funds",
+  REGISTRATE: "/registrate",
 };

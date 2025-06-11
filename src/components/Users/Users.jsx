@@ -40,6 +40,27 @@ const Users = () => {
     getFilteredUsers();
   }, [debouncedSearchValue, dateRange]);
 
+  const addRopPayment = (userId) => {
+    axios
+      .post(
+        `${APP_ROUTES.URL}/admin/add-payment-rop`,
+        { userId },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("@token")}`,
+          },
+        }
+      )
+      .then(() => {
+        toast.success("Роп платеж успешно добавлен");
+        getFilteredUsers();
+      })
+      .catch((error) => {
+        console.error("Ошибка при добавлении роп платежа:", error);
+        toast.error("Не удалось добавить роп платеж");
+      });
+  };
+
   const addPayment = (userId) => {
     axios
       .post(
@@ -180,31 +201,51 @@ const Users = () => {
       title: "День регистрации",
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (date) => new Date(date).toLocaleDateString(),
+      // show date with time in format "DD.MM.YYYY HH:mm:ss"
+      render: (date) => new Date(date).toLocaleString(),
       sorter: (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
     },
     {
       title: "Есть ли подписка",
       key: "hasSubscription",
       render: (_, user) => {
-        const hasSubscription = user?.payments?.length > 0;
-        const currentValue = hasSubscription ? "Да" : "Нет";
+        const paymentType = user?.payments?.[0]?.paymentType;
 
-        const handleChange = (value) => {
-          if (value === "Да" && !hasSubscription) {
-            addPayment(user.id);
-          } else if (value === "Нет" && hasSubscription) {
-            deletePayment(user.payments[0].id);
+        const currentValue = (() => {
+          switch (paymentType) {
+            case "payme":
+              return "Payme";
+            case "click":
+              return "Click";
+            case "admin":
+              return "Админ да";
+            case "rop":
+              return "Роп да";
+            default:
+              return "Нет";
+          }
+        })();
+
+        const handleChange = async (value) => {
+          if (value === "Админ да" && !paymentType) {
+            await addPayment(user.id);
+          } else if (value === "Роп да" && !paymentType) {
+            await addRopPayment(user.id);
+          } else if (value === "Нет" && paymentType) {
+            await deletePayment(user.payments[0].id);
           }
         };
 
         return (
           <Select
-            defaultValue={currentValue}
+            value={currentValue}
             style={{ width: 120 }}
             onChange={handleChange}
           >
-            <Option value="Да">Да</Option>
+            <Option value="Админ да">Админ да</Option>
+            <Option value="Роп да">Роп да</Option>
+            <Option value="Click">Click</Option>
+            <Option value="Payme">Payme</Option>
             <Option value="Нет">Нет</Option>
           </Select>
         );
@@ -216,7 +257,7 @@ const Users = () => {
       key: "subscriptionDate",
       render: (_, user) =>
         user?.payments?.length > 0
-          ? new Date(user.payments[0].createdAt).toLocaleDateString()
+          ? new Date(user.payments[0].createdAt).toLocaleString()
           : "—",
       sorter: (a, b) => {
         const dateA = a?.payments?.[0]?.createdAt

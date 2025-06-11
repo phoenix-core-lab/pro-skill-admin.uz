@@ -21,6 +21,8 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.57.0",
+    "react-input-mask": "^2.0.4",
     "react-router-dom": "^6.21.3",
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",

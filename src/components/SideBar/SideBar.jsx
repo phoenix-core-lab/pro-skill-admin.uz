@@ -8,6 +8,7 @@ import "./SideBar.scss";
 import { useNavigate } from "react-router-dom";
 import { Outlet, Link } from "react-router-dom";
 import MarkUnreadChatAltOutlinedIcon from "@mui/icons-material/MarkUnreadChatAltOutlined";
+import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import userIcon from "../../images/user.svg";
 import usersIcon from "../../images/usersIcon.svg";
 import messangerIcon from "../../images/messangerIcon.svg";
@@ -109,6 +110,18 @@ function SideBar(props) {
                   <img src={usersIcon} alt={usersIcon} />
                 </div>
                 <h4>Пользователи</h4>
+              </Link>
+              <Link
+                reloadDocument
+                to={APP_ROUTES.REGISTRATE}
+                className={`navLink ${
+                  props.title === "Зарегистрировать" && "isActive"
+                }`}
+              >
+                <div className="navLinkIcon">
+                  <HowToRegOutlinedIcon />
+                </div>
+                <h4>Зарегистрировать</h4>
               </Link>
               <Link
                 reloadDocument
