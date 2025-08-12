@@ -23,6 +23,15 @@ const formatUzPhone = (value) => {
   return "+998 " + parts.slice(1).filter(Boolean).join(" ");
 };
 
+// Функция для проверки, начинает ли пользователь вводить номер телефона
+const looksLikePhoneStart = (value) => {
+  const clean = value.replace(/\s/g, "");
+  // Проверяем только если значение точно соответствует началу номера телефона
+  return (clean.startsWith("+998") && clean.length > 4) || 
+         (clean.startsWith("998") && clean.length > 3) || 
+         clean === "+";
+};
+
 const Registrate = () => {
   const title = "Зарегистрировать";
   const [isOpenSideBar, setIsOpenSideBar] = useState(true);
@@ -33,17 +42,27 @@ const Registrate = () => {
     handleSubmit,
     control,
     reset,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm();
 
+  const loginValue = watch("login");
+
   const onSubmit = async (data) => {
-    const cleanedPhone = data.phoneNumber.replace(/\D/g, "");
     try {
+      // Подготавливаем данные для отправки
+      let loginData = data.login;
+      
+      // Если это номер телефона, очищаем от лишних символов
+      if (looksLikePhoneStart(data.login)) {
+        loginData = data.login.replace(/[^\d+]/g, "");
+      }
+
       await axios.post(
         `${APP_ROUTES.URL}/auth/registerByAdmin`,
         {
           fullName: data.fullName,
-          phoneNumber: `+${cleanedPhone}`,
+          phoneNumber: loginData, // Отправляем под ключом phoneNumber, даже если это логин
           password: data.password,
         },
         {
@@ -101,20 +120,25 @@ const Registrate = () => {
               />
             </AntForm.Item>
 
-            {/* Phone Number */}
+            {/* Login / Phone Number */}
             <AntForm.Item
-              label="Телефон"
-              validateStatus={errors.phoneNumber ? "error" : ""}
-              help={errors.phoneNumber?.message}
+              label="Логин или номер телефона"
+              validateStatus={errors.login ? "error" : ""}
+              help={errors.login?.message}
             >
               <Controller
-                name="phoneNumber"
+                name="login"
                 control={control}
                 rules={{
-                  required: "Телефон обязателен",
+                  required: "Логин обязателен",
                   validate: (value) => {
-                    const digits = value.replace(/\D/g, "");
-                    return digits.length === 12 || "Введите полный номер";
+                    // Если это номер телефона, проверяем его полноту
+                    if (looksLikePhoneStart(value)) {
+                      const digits = value.replace(/\D/g, "");
+                      return digits.length === 12 || "Введите полный номер телефона";
+                    }
+                    // Для обычного логина минимальная длина
+                    return value.length >= 3 || "Логин должен содержать минимум 3 символа";
                   },
                 }}
                 render={({ field }) => (
@@ -123,12 +147,24 @@ const Registrate = () => {
                     value={field.value}
                     onChange={(e) => {
                       let input = e.target.value;
-                      if (!input.startsWith("+998 ")) {
-                        input = "+998 ";
+                      
+                      // Если пользователь начинает вводить номер телефона
+                      if (looksLikePhoneStart(input)) {
+                        // Применяем форматирование для телефонных номеров
+                        field.onChange(formatUzPhone(input));
+                      } else {
+                        // Для обычного логина просто сохраняем как есть
+                        field.onChange(input);
                       }
-                      field.onChange(formatUzPhone(input));
                     }}
-                    placeholder="+998 90 123 45 67"
+                    onKeyDown={(e) => {
+                      // Позволяем удалять +998 при нажатии Backspace или Delete
+                      if ((e.key === 'Backspace' || e.key === 'Delete') && field.value === '+998 ') {
+                        e.preventDefault();
+                        field.onChange('');
+                      }
+                    }}
+                    placeholder="username123 или +998 90 123 45 67"
                     className="input-field"
                   />
                 )}
@@ -144,7 +180,13 @@ const Registrate = () => {
               <Controller
                 name="password"
                 control={control}
-                rules={{ required: "Пароль обязателен" }}
+                rules={{ 
+                  required: "Пароль обязателен",
+                  minLength: {
+                    value: 6,
+                    message: "Пароль должен содержать минимум 6 символов"
+                  }
+                }}
                 render={({ field }) => (
                   <input
                     type="password"

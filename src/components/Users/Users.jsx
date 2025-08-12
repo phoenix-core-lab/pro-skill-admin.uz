@@ -10,7 +10,10 @@ import {
   Button,
   Select,
   DatePicker,
+  Modal,
+  Form,
 } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
@@ -30,6 +33,11 @@ const Users = () => {
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearchValue = useDebounce(searchValue, 500);
   const [dateRange, setDateRange] = useState([null, null]);
+
+  // Состояние для модального окна смены пароля
+  const [isPasswordModalVisible, setIsPasswordModalVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [passwordForm] = Form.useForm();
 
   const buildFilterParams = (value) => {
     const isPhone = /\d/.test(value);
@@ -101,6 +109,57 @@ const Users = () => {
       });
   };
 
+  // Функция для смены пароля пользователя
+  const changeUserPassword = async (userId, newPassword) => {
+    try {
+      await axios.put(
+        `${APP_ROUTES.URL}/admin/change-password`,
+        {
+          userId: userId,
+          newPassword: newPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("@token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      toast.success("Пароль успешно изменен");
+      setIsPasswordModalVisible(false);
+      passwordForm.resetFields();
+      setSelectedUser(null);
+    } catch (error) {
+      console.error("Ошибка при смене пароля:", error);
+      toast.error("Не удалось изменить пароль");
+    }
+  };
+
+  // Открытие модального окна для смены пароля
+  const openPasswordModal = (user) => {
+    setSelectedUser(user);
+    setIsPasswordModalVisible(true);
+  };
+
+  // Обработка формы смены пароля
+  const handlePasswordChange = () => {
+    passwordForm
+      .validateFields()
+      .then((values) => {
+        changeUserPassword(selectedUser.id, values.newPassword);
+      })
+      .catch((info) => {
+        console.log("Validate Failed:", info);
+      });
+  };
+
+  // Закрытие модального окна
+  const handlePasswordModalCancel = () => {
+    setIsPasswordModalVisible(false);
+    passwordForm.resetFields();
+    setSelectedUser(null);
+  };
+
   const getFilteredUsers = async () => {
     try {
       setLoading(true);
@@ -154,7 +213,7 @@ const Users = () => {
   const exportToExcel = () => {
     const formattedData = users.map((user) => ({
       ID: user.id,
-      "Номер телефона": user.phoneNumber,
+      "Логин/Номер телефона": user.phoneNumber,
       ФИО: user.fullName,
       "День регистрации": new Date(user.createdAt).toLocaleDateString(),
       "Есть ли подписка": user.payments?.length > 0 ? "Да" : "Нет",
@@ -186,7 +245,7 @@ const Users = () => {
       sorter: (a, b) => a.id - b.id,
     },
     {
-      title: "Номер телефона",
+      title: "Логин/Номер телефона",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
       sorter: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
@@ -269,6 +328,20 @@ const Users = () => {
         return dateA - dateB;
       },
     },
+    {
+      title: "Действия",
+      key: "actions",
+      render: (_, user) => (
+        <Button
+          type="primary"
+          size="small"
+          icon={<EditOutlined />}
+          onClick={() => openPasswordModal(user)}
+        >
+          Изменить пароль
+        </Button>
+      ),
+    },
   ];
 
   return (
@@ -296,7 +369,7 @@ const Users = () => {
           >
             <div style={{ display: "flex", gap: "12px" }}>
               <Input
-                placeholder="Поиск по имени или номеру телефона"
+                placeholder="Поиск по имени или логину/номеру телефона"
                 onChange={handleSearchChange}
                 value={searchValue}
                 style={{ width: "300px" }}
@@ -323,6 +396,63 @@ const Users = () => {
           </Spin>
         </div>
       </div>
+
+      {/* Модальное окно для смены пароля */}
+      <Modal
+        title={`Изменить пароль для ${selectedUser?.fullName}`}
+        open={isPasswordModalVisible}
+        onOk={handlePasswordChange}
+        onCancel={handlePasswordModalCancel}
+        okText="Изменить"
+        cancelText="Отмена"
+      >
+        <Form form={passwordForm} layout="vertical" name="password_change_form">
+          <Form.Item
+            label="Новый пароль"
+            name="newPassword"
+            rules={[
+              {
+                required: true,
+                message: "Пожалуйста, введите новый пароль!",
+              },
+              {
+                min: 6,
+                message: "Пароль должен содержать минимум 6 символов!",
+              },
+            ]}
+          >
+            <Input.Password
+              placeholder="Введите новый пароль"
+              autoComplete="new-password"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Подтвердите пароль"
+            name="confirmPassword"
+            dependencies={["newPassword"]}
+            rules={[
+              {
+                required: true,
+                message: "Пожалуйста, подтвердите пароль!",
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("newPassword") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error("Пароли не совпадают!"));
+                },
+              }),
+            ]}
+          >
+            <Input.Password
+              placeholder="Подтвердите новый пароль"
+              autoComplete="new-password"
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
+
       <Outlet />
     </>
   );
