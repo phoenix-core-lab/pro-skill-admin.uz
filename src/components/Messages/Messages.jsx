@@ -93,22 +93,21 @@
 // }
 
 // export default Messages;
-
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Helmet } from "react-helmet";
 import { Outlet } from "react-router-dom";
-import { Input, Table, Typography, Spin, Button } from "antd";
+import { Input, Table, Typography, Spin, Button, Select } from "antd";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
-
 import SideBar from "../SideBar/SideBar";
 import TopSideBar from "../TopSideBar/TopSideBar";
 import { APP_ROUTES } from "../../router/Route";
 
+const { Option } = Select;
 const PAGE_SIZE = 40;
 
 const Messages = () => {
@@ -120,6 +119,7 @@ const Messages = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [dateFrom, setDateFrom] = useState(null);
   const [dateTo, setDateTo] = useState(null);
+  const [sourceFilter, setSourceFilter] = useState(null); // Новый state для фильтра источника
 
   useEffect(() => {
     getAllMessages();
@@ -127,7 +127,7 @@ const Messages = () => {
 
   useEffect(() => {
     handleFilter();
-  }, [searchValue, users, dateFrom, dateTo]);
+  }, [searchValue, users, dateFrom, dateTo, sourceFilter]);
 
   const getAllMessages = async () => {
     try {
@@ -156,6 +156,14 @@ const Messages = () => {
 
   const resetSearch = () => {
     setSearchValue("");
+    setDateFrom(null);
+    setDateTo(null);
+    setSourceFilter(null);
+  };
+
+  // Функция для определения источника заявки
+  const getSource = (name) => {
+    return name && name.startsWith("Quiz:") ? "quiz" : "landing";
   };
 
   const handleFilter = () => {
@@ -164,26 +172,39 @@ const Messages = () => {
     const filtered = users.filter((item) => {
       const nameMatch =
         item.name.toLowerCase().includes(value) ||
-        item.surname.toLowerCase().includes(value) ||
         item.phoneNumber.replace(/\s/g, "").includes(value.replace(/\s/g, ""));
 
       const createdDate = new Date(item.createdAt);
       const fromOk = dateFrom ? createdDate >= new Date(dateFrom) : true;
       const toOk = dateTo ? createdDate <= new Date(dateTo) : true;
 
-      return nameMatch && fromOk && toOk;
+      // Фильтрация по источнику
+      const sourceMatch = sourceFilter
+        ? getSource(item.name) === sourceFilter
+        : true;
+
+      return nameMatch && fromOk && toOk && sourceMatch;
     });
 
     setFilteredData(filtered);
   };
 
   const exportToExcel = () => {
-    const formattedData = filteredData.map((item) => ({
-      ID: item.id,
-      ФИО: `${item.name} ${item.surname}`,
-      Телефон: item.phoneNumber,
-      "Дата создания": new Date(item.createdAt).toLocaleString(),
-    }));
+    const formattedData = filteredData.map((item) => {
+      // Убираем "Quiz:" из имени для экспорта
+      const displayName =
+        item.name && item.name.startsWith("Quiz:")
+          ? item.name.replace("Quiz:", "")
+          : item.name;
+
+      return {
+        ID: item.id,
+        ФИО: `${displayName}`,
+        Телефон: item.phoneNumber,
+        Источник: getSource(item.name) === "quiz" ? "Quiz" : "Landing Page",
+        "Дата создания": new Date(item.createdAt).toLocaleString(),
+      };
+    });
 
     const worksheet = XLSX.utils.json_to_sheet(formattedData);
     const workbook = XLSX.utils.book_new();
@@ -209,15 +230,29 @@ const Messages = () => {
     {
       title: "ФИО",
       key: "fullName",
-      render: (record) => `${record.name}`,
+      render: (record) => {
+        // Убираем "Quiz:" из имени для отображения
+        const displayName =
+          record.name && record.name.startsWith("Quiz:")
+            ? record.name.replace("Quiz:", "")
+            : record.name;
+        return `${displayName}`;
+      },
       sorter: (a, b) =>
-        `${a.name} ${a.surname}`.localeCompare(`${b.name} ${b.surname}`),
+        `${a.name}`.localeCompare(`${b.name}`),
     },
     {
       title: "Телефон",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
       sorter: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
+    },
+    {
+      title: "Источник",
+      key: "source",
+      render: (record) =>
+        getSource(record.name) === "quiz" ? "Quiz" : "Landing Page",
+      sorter: (a, b) => getSource(a.name).localeCompare(getSource(b.name)),
     },
     {
       title: "Дата создания",
@@ -266,6 +301,16 @@ const Messages = () => {
                 }}
                 format="DD.MM.YYYY"
               />
+              <Select
+                placeholder="Источник заявки"
+                style={{ width: "20%" }}
+                allowClear
+                value={sourceFilter}
+                onChange={setSourceFilter}
+              >
+                <Option value="quiz">Quiz</Option>
+                <Option value="landing">Landing Page</Option>
+              </Select>
               <Button onClick={resetSearch}>Сбросить поиск</Button>
             </div>
             <Button onClick={exportToExcel} type="primary">
